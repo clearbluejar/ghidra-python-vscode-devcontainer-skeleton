@@ -1,20 +1,20 @@
 {
     // needed to make ghidra stubs work in this project (auto complete for vscode)
-    "python.defaultInterpreterPath": "${workspaceFolder}\\.env\\Scripts\\python.exe",
-    "python.analysis.stubPath": "${workspaceFolder}\\.env\\Lib\\site-packages\\ghidra-stubs",
+    "python.defaultInterpreterPath": "${workspaceFolder}.env/bin/python",
+    "python.analysis.stubPath": "${workspaceFolder}/.env/lib/python3.10/site-packages/ghidra-stubs/",
     "python.autoComplete.extraPaths": [
         
-        "${workspaceFolder}\\.env\\Lib\\site-packages\\ghidra-stubs"
+        
+        "${workspaceFolder}/.env/lib/python3.10/site-packages/ghidra-stubs/"
     ],
     "python.analysis.extraPaths": [
-        "${workspaceFolder}\\.env\\Lib\\site-packages\\ghidra-stubs"
+        "${workspaceFolder}/.env/lib/python3.10/site-packages/ghidra-stubs/"
     ],
-    // env vars 
-    "GHIDRA_INSTALL_DIR": "<replace me with Ghidra install directory path>",
+    // env vars        
+    "GHIDRA_INSTALL_DIR": "${env:GHIDRA_INSTALL_DIR}",
     "PROJECT_PATH": "${workspaceFolder}${pathSeparator}.ghidra_project_files",
     "PROJECT_NAME": "sample_project",
-    "HEADLESS": "support${pathSeparator}analyzeHeadless.bat",
-    "BINARY":  "${workspaceFolder}\\.env\\Scripts\\python.exe", // analyze python for fun
-    "HEADLESS_SCRIPT":  "${workspaceFolder}\\sample.py" // analyze python for fun
-
+    "GHIDRA_HEADLESS": "${env:GHIDRA_INSTALL_DIR}${pathSeparator}support${pathSeparator}analyzeHeadless",
+    "BIN_DIR":  ".bins_to_import", // add binaries here to analyze
+    "HEADLESS_SCRIPT":  "${workspaceFolder}${pathSeparator}sample.py"
 }

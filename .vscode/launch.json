@@ -12,12 +12,12 @@
             "console": "integratedTerminal",
             "args": ["skeleton.py"],
             "justMyCode": true,
+            // Don't edit env directly, they read from setting.json. Follow pattern to add new.
             "env": {                
                 "GHIDRA_INSTALL_DIR": "${config:GHIDRA_INSTALL_DIR}",
                 "PROJECT_PATH": "${config:PROJECT_PATH}",
                 "PROJECT_NAME": "${config:PROJECT_NAME}",
-                "GHIDRA_HEADLESS":  "${config:GHIDRA_INSTALL_DIR}${pathSeparator}${config:HEADLESS}",
-                "BINARY": "${config:BINARY}",
+                "GHIDRA_HEADLESS":  "${config:GHIDRA_HEADLESS}",                
                 "HEADLESS_SCRIPT": "${config:HEADLESS_SCRIPT}",
             }, 
         }

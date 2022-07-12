@@ -6,7 +6,7 @@
         {
             "label": "Run Current Python Script in Ghidra Jython",
             "type": "shell",
-            "command": "${config:GHIDRA_INSTALL_DIR}${config:HEADLESS}",            
+            "command": "${config:GHIDRA_HEADLESS}",            
             "args": [
                 "${config:PROJECT_PATH}",
                 "${config:PROJECT_NAME}",
@@ -19,32 +19,17 @@
             "label": "Setup",
             "type": "shell",          
             "problemMatcher": [],
-            "dependsOn": [ "Create Ghidra Project Directory", "Import Binary" ]
+            "dependsOn": [ "Create Ghidra Project Directory" ]
         },
         {
             "label": "Create Ghidra Project Directory",
             "type": "shell",
             "command": "mkdir",            
-            "args": [
-                "-Force",                
+            "args": [          
                 "-p",                
                 "${config:PROJECT_PATH}",
             ],
-            "problemMatcher": [],
-            "console": "integratedTerminal",
-        },
-        {
-            "label": "Import Binary",
-            "type": "shell", 
-            "command": "${config:GHIDRA_INSTALL_DIR}${config:HEADLESS}",            
-            "args": [
-                "${config:PROJECT_PATH}",
-                "${config:PROJECT_NAME}",
-                "-import",
-                "${config:BINARY}",
-                "-overwrite",
-            ],
-            "problemMatcher": [],
+            "problemMatcher": [],            
         },
     ],
 
