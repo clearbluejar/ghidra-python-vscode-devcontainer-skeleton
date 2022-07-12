@@ -1,0 +1,25 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [        
+        {
+            "name": "Python: Current File",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "args": ["skeleton.py"],
+            "justMyCode": true,
+            "env": {                
+                "GHIDRA_INSTALL_DIR": "${config:GHIDRA_INSTALL_DIR}",
+                "PROJECT_PATH": "${config:PROJECT_PATH}",
+                "PROJECT_NAME": "${config:PROJECT_NAME}",
+                "GHIDRA_HEADLESS":  "${config:GHIDRA_INSTALL_DIR}${pathSeparator}${config:HEADLESS}",
+                "BINARY": "${config:BINARY}",
+                "HEADLESS_SCRIPT": "${config:HEADLESS_SCRIPT}",
+            }, 
+        }
+    ]
+}
