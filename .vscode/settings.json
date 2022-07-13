@@ -3,8 +3,6 @@
     "python.defaultInterpreterPath": "${workspaceFolder}.env/bin/python",
     "python.analysis.stubPath": "${workspaceFolder}/.env/lib/python3.10/site-packages/ghidra-stubs/",
     "python.autoComplete.extraPaths": [
-        
-        
         "${workspaceFolder}/.env/lib/python3.10/site-packages/ghidra-stubs/"
     ],
     "python.analysis.extraPaths": [
@@ -12,9 +10,7 @@
     ],
     // env vars        
     "GHIDRA_INSTALL_DIR": "${env:GHIDRA_INSTALL_DIR}",
-    "PROJECT_PATH": "${workspaceFolder}${pathSeparator}.ghidra_project_files",
-    "PROJECT_NAME": "sample_project",
+    "GHIDRA_PROJECTS_PATH": "${workspaceFolder}${pathSeparator}.ghidra_projects",
     "GHIDRA_HEADLESS": "${env:GHIDRA_INSTALL_DIR}${pathSeparator}support${pathSeparator}analyzeHeadless",
-    "BIN_DIR":  ".bins_to_import", // add binaries here to analyze
-    "HEADLESS_SCRIPT":  "${workspaceFolder}${pathSeparator}sample.py"
+    "PROJECT_NAME": "sample_project",    
 }

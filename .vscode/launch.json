@@ -10,15 +10,14 @@
             "request": "launch",
             "program": "${file}",
             "console": "integratedTerminal",
-            "args": ["skeleton.py"],
             "justMyCode": true,
-            // Don't edit env directly, they read from setting.json. Follow pattern to add new.
+            // Don't edit env directly, they read from settings.json
+            // Add/delete new vars as needed
             "env": {                
                 "GHIDRA_INSTALL_DIR": "${config:GHIDRA_INSTALL_DIR}",
-                "PROJECT_PATH": "${config:PROJECT_PATH}",
-                "PROJECT_NAME": "${config:PROJECT_NAME}",
-                "GHIDRA_HEADLESS":  "${config:GHIDRA_HEADLESS}",                
-                "HEADLESS_SCRIPT": "${config:HEADLESS_SCRIPT}",
+                "GHIDRA_PROJECTS_PATH": "${config:GHIDRA_PROJECTS_PATH}",
+                "GHIDRA_HEADLESS":  "${config:GHIDRA_HEADLESS}",     
+                "PROJECT_NAME": "${config:PROJECT_NAME}",                
             }, 
         }
     ]

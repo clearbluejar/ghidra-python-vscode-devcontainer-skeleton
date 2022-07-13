@@ -8,28 +8,12 @@
             "type": "shell",
             "command": "${config:GHIDRA_HEADLESS}",            
             "args": [
-                "${config:PROJECT_PATH}",
+                "${config:GHIDRA_PROJECTS_PATH}${pathSeparator}${config:PROJECT_NAME}",
                 "${config:PROJECT_NAME}",
                 "-postscript",
                 "${file}"
             ],
             "problemMatcher": [],
-        },
-        {
-            "label": "Setup",
-            "type": "shell",          
-            "problemMatcher": [],
-            "dependsOn": [ "Create Ghidra Project Directory" ]
-        },
-        {
-            "label": "Create Ghidra Project Directory",
-            "type": "shell",
-            "command": "mkdir",            
-            "args": [          
-                "-p",                
-                "${config:PROJECT_PATH}",
-            ],
-            "problemMatcher": [],            
         },
     ],
 
