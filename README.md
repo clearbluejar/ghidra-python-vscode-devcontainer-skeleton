@@ -1,0 +1,1 @@
+![demo](ghidra-python-vscode-devcontainer-skeleton.gif)
