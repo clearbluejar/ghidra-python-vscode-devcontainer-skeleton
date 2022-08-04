@@ -6,10 +6,10 @@ A skeleton repo to provide a Ghidra Headless (non-GUI) Python scripting environm
 
 - Prescribes [workflow](#workflow) to get you started (modify as needed)
 - Container dependencies captured in [.devcontainer](.devcontainer/)
-    - Leverages [vscode python3 devcontainer image](https://github.com/microsoft/vscode-dev-containers/tree/main/containers/python-3) with Java [feature](.devcontainer/devcontainer.json#L64-L66) added for running Ghidra
-    - Provisions specified versions Ghidra based on `GHIDRA_VERSION` in [devcontainer.json](.devcontainer/devcontainer.json#L15-L16)
+  - Leverages [vscode python3 devcontainer image](https://github.com/microsoft/vscode-dev-containers/tree/main/containers/python-3) with Java [feature](.devcontainer/devcontainer.json#L64-L66) added for running Ghidra
+  - Provisions specified versions Ghidra based on `GHIDRA_VERSION` in [devcontainer.json](.devcontainer/devcontainer.json#L15-L16)
 - Auto complete for Ghidra Python script setup and configured
-    - via pyi typings from [VDOO-Connected-Trust/ghidra-pyi-generator](https://github.com/VDOO-Connected-Trust/ghidra-pyi-generator)
+  - via pyi typings from [VDOO-Connected-Trust/ghidra-pyi-generator](https://github.com/VDOO-Connected-Trust/ghidra-pyi-generator)
 - IDE debugging over RPC
   - via [justfoxing/ghidra_bridge](https://github.com/justfoxing/ghidra_bridge)
 - Demonstrates running python scripts in [various ways](#different-ways-to-run-a-ghidra-headless-script).
@@ -26,7 +26,7 @@ If you haven't tried [developing inside a container](https://code.visualstudio.c
 
 > "This lets VS Code provide a local-quality development experience including full IntelliSense (completions), code navigation, and debugging regardless of where your tools (or code) are located." [Developing inside a Container using Visual Studio Code Remote Development](https://code.visualstudio.com/docs/remote/containers)
 
-This version is an upgrade from the old [ghidra-python-vscode-skeleton](https://github.com/clearbluejar/ghidra-python-vscode-skeleton). Upgraded via the power of  `vscode` devcontainers. Everything just works once. Don't believe me? Try it.
+This version is an upgrade from the old [ghidra-python-vscode-skeleton](https://github.com/clearbluejar/ghidra-python-vscode-skeleton). Upgraded via the power of  `vscode` devcontainers. **Everything just works.** Don't believe me? Try it.
 
 ![demo](https://github.com/clearbluejar/ghidra-python-vscode-devcontainer-skeleton/blob/assets/ghidra-python-vscode-devcontainer-skeleton.gif?raw=True)
 
@@ -428,5 +428,7 @@ Shutting down ghidra_bridge_server : 43841
 ## Ghidra Python Headless Scripting Hangups
 
 1. Ghidra runs Jython, not actually Python. It is limited to python 2.7 features.
-2. In order to supply arguments to api calls like [askProgram](https://ghidra.re/ghidra_docs/api/ghidra/app/script/GhidraScript.html#askProgram(java.lang.String)) (which sets the current program being analyzed), a properties file needs to be provided with the same name and location as the script being run. In this case a [sample.properties](sample.properties) sets the arguments for [sample.py](sample.py). For [sample-bridge.py](sample-bridge.py), the args have to be passed when the ghidra-bridge-server.py runs. The server has to be [started and running](https://github.com/justfoxing/ghidra_bridge#headless-analysis-context) before you connect to it. 
-3. `ghidra-bridge` is usually too slow for my analysis needs, but useful for step through debugging. 
+2. In order to pass arguments to api calls like [askProgram](https://ghidra.re/ghidra_docs/api/ghidra/app/script/GhidraScript.html#askProgram(java.lang.String)) (which sets the current program being analyzed) either:
+   - a `.properties` file needs to exist with the same name and location as the script being run. In this case a [sample.properties](sample.properties) sets the arguments for [sample.py](sample.py).
+   - the args have to be passed on the command line when running `analyzeHeadless`. For [sample-bridge.py](sample-bridge.py), the args are awkwardly passed when ghidra_bridge_server [starts](sample-bridge.py#L37), as that server running within the Ghidra context is the only time analyzeHeadless is called.  More details [here](https://github.com/justfoxing/ghidra_bridge#headless-analysis-context).
+3. `ghidra-bridge` has to be started and running before you [connect](sample-bridge.py#L53) to it. The bridge can be started outside of sample-bridge.py, but you won't be able to pass arguments to it if neeed. Also, `ghidra-bridge` is slow for large analysis. Its best feature is the ability to step through and inspect the sample-bridge.py script within the IDE.
