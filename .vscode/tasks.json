@@ -15,6 +15,23 @@
             ],
             "problemMatcher": [],
         },
+        {            
+            "label": "Start ghidra-bridge RPC server",
+            "type": "shell",
+            "command": "${config:GHIDRA_HEADLESS}",            
+            "args": [
+                "${config:GHIDRA_PROJECTS_PATH}${pathSeparator}${config:PROJECT_NAME}",
+                "${config:PROJECT_NAME}",
+                "-scriptPath",
+                "${config:GHIDRA_BRIDGE_INSTALL_DIR}",
+                "-propertiesPath",
+                "${config:GHIDRA_BRIDGE_INSTALL_DIR}",
+                "-postscript",
+                "ghidra_bridge_server.py",
+                "ls"
+            ],
+            "problemMatcher": [],
+        },
     ],
 
 }
