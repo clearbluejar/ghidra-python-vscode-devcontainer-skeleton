@@ -17,8 +17,11 @@ echo $PYI_WHL_RELEASE_URLS
 echo $PYI_WHL_DOWNLOAD_URL
 pip install "${PYI_WHL_DOWNLOAD_URL}"
 
-# Download latest Ghidra Bridge
+# Install ghidra-bridge
 pip install ghidra_bridge
 
-# Install bridge scripts
+# Install bridge scripts to local dir
 python -m ghidra_bridge.install_server .ghidra_bridge
+
+# Install pyhdira
+pip install pyhidra

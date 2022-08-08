@@ -10,8 +10,9 @@ A skeleton repo to provide a Ghidra Headless (non-GUI) Python scripting environm
   - Provisions specified versions Ghidra based on `GHIDRA_VERSION` in [devcontainer.json](.devcontainer/devcontainer.json#L15-L16)
 - Auto complete for Ghidra Python script setup and configured
   - via pyi typings from [VDOO-Connected-Trust/ghidra-pyi-generator](https://github.com/VDOO-Connected-Trust/ghidra-pyi-generator)
-- IDE debugging over RPC
-  - via [justfoxing/ghidra_bridge](https://github.com/justfoxing/ghidra_bridge)
+- IDE debugging (available from either)
+  - [justfoxing/ghidra_bridge](https://github.com/justfoxing/ghidra_bridge) over RPC
+  - [pyhidra](https://github.com/dod-cyber-crime-center/pyhidra) leveraging native CPython interpreter using [jpype](https://jpype.readthedocs.io/en/latest/)
 - Demonstrates running python scripts in [various ways](#different-ways-to-run-a-ghidra-headless-script).
 
 ## About
@@ -60,18 +61,21 @@ The manual setup essentially has to mimic the following scripts:
 
 <details><summary> Expand for Manual Setup Steps </summary>
 
-
-
 1. [Install Ghidra](https://github.com/NationalSecurityAgency/ghidra/releases) yourself.
 2. Update `GHIDRA_INSTALL_DIR` and other variables in [settings.json](.vscode/settings.json) with your install paths.
 3. Set environment variable with `GHIDRA_VERSION`
    - `export GHIDRA_VERSION=10.1.4`
-4. Install `ghidra-stubs` that match your `GHIDRA_VERSION`
+4. Setup `venv`
+   - `python3 -m venv .env`
+5. Install pip packages
    - autocomplete 
-     - `pip install https://github.com/clearbluejar/ghidra-pyi-generator/releases/download/v1.0.3-10.1.4/ghidra_stubs-10.1.4.refs_heads_master-py2.py3-none-any.whl` or `pip install ghidra-stubs` from pypi (this is an outdated version)
+     - `ghidra-stubs` that match your `GHIDRA_VERSION`
+       - `pip install https://github.com/clearbluejar/ghidra-pyi-generator/releases/download/v1.0.3-10.1.4/ghidra_stubs-10.1.4.refs_heads_master-py2.py3-none-any.whl` or `pip install ghidra-stubs` from pypi (this is an outdated version)
    - ghidra bridge
      - `pip install ghidra-bridge`
      - `python -m ghidra_bridge.install_server .ghidra_bridge`
+   - pyhidra
+     - `pip install pyhidra`
 
 </details>
 
@@ -158,15 +162,15 @@ Step 4 runs the script on the imported binary after analysis (*-postscript*) on 
 There are several ways to run a Ghidra Python script.
 
 1. Run via launch on [run_headless.py](run_headless.py).
-   - The most straightforward means to run the script. It simply uses subprocess module with the correct arguments to run the sample.py.
+   - The most straightforward means to run the script. It simply uses subprocess module to call `analyzeHeadless` with the correct arguments to run the [sample.py](sample.py).
    - It also creates a properties file needed to pass arguments to some Ghidra API calls.
 2. Run the task `Run Current Python Script in Ghidra Jython` within [tasks.json](.vscode/tasks.json).
    - To use this task make sure you have open and focused the [sample.py](sample.py).
 3. Run via launch on [sample-bridge.py](sample-bridge.py) leveraging `ghidra-bridge`.
-   1. Requires the ghidra-bridge to [start prior to connecting](sample-bridge.py#L43-L49) via bridge. 
-   2. Instead of properties file, [passes](sample-bridge.py#L37) `ls` argument to ghidra-bridge server. 
-4. Run [sample.py](sample.py) directly in Ghidra via the GUI after copying it to the `ghidra_scripts` directory. If you are doing that, you likely don't need this repo.
-
+   - Requires the ghidra-bridge to [start prior to connecting](sample-bridge.py#L43-L49) via bridge. 
+   - Instead of properties file, [passes](sample-bridge.py#L37) `ls` argument to ghidra-bridge server. 
+4. Run [sample-pyhidra.py](sample-pyhidra.py) leveraging `pyhidra` (best one! It really just works with the help of `jpype`)   
+5. Run [sample.py](sample.py) directly in Ghidra via the GUI after copying it to the `ghidra_scripts` directory. If you are doing that, you likely don't need this repo.
 
 ### Sample Outputs
 
@@ -424,6 +428,92 @@ Shutting down ghidra_bridge_server : 43841
 ```
 </details>
 
+<details><summary>4. Run via launch on sample-pyhidra.py</summary>
+
+```terminal
+(.env) vscode ➜ /workspaces/ghidra-python-vscode-devcontainer-skeleton (main ✗) $  cd /workspaces/ghidra-python-vscode-devcontainer-skeleton ; /usr/bin/env /workspaces/ghidra-python-vscode-devcontainer-skeleton/.env/bin/python /home/vscode/.vscode-server/extensions/ms-python.python-2022.12.0/pythonFiles/lib/python/debugpy/adapter/../../debugpy/launcher 40875 -- /workspaces/ghidra-python-vscode-devcontainer-skeleton/sample-pyhidra.py 
+/ghidra/Ghidra/Framework/Utility/lib/Utility.jar
+INFO  Using log config file: jar:file:/ghidra/Ghidra/Framework/Generic/lib/Generic.jar!/generic.log4j.xml (LoggingInitialization)  
+INFO  Using log file: /home/vscode/.ghidra/.ghidra_10.1.4_PUBLIC/application.log (LoggingInitialization)  
+INFO  Loading user preferences: /home/vscode/.ghidra/.ghidra_10.1.4_PUBLIC/preferences (Preferences)  
+INFO  Class search complete (813 ms) (ClassSearcher)  
+INFO  Initializing SSL Context (SSLContextInitializer)  
+INFO  Initializing Random Number Generator... (SecureRandomFactory)  
+INFO  Random Number Generator initialization complete: NativePRNGNonBlocking (SecureRandomFactory)  
+INFO  Trust manager disabled, cacerts have not been set (ApplicationTrustManagerFactory)  
+INFO  Opening project: /workspaces/ghidra-python-vscode-devcontainer-skeleton/.ghidra_projects/sample_project/sample_project/sample_project (DefaultProject)  
+INFO  DWARF external debug information found: ExternalDebugInfo [filename=1a4999161b8b2da681b80d8bf351e40afc40ad.debug, crc=1816f651, hash=9c1a4999161b8b2da681b80d8bf351e40afc40ad] (ExternalDebugFilesService)  
+INFO  Unable to find DWARF information, skipping DWARF analysis (DWARFAnalyzer)  
+ERROR os/linux_arm_64/decompile does not exist (DecompileProcessFactory)  
+INFO  Packed database cache: /tmp/vscode-Ghidra/packed-db-cache (PackedDatabaseCache)  
+INFO  -----------------------------------------------------
+    AARCH64 ELF PLT Thunks                     0.017 secs
+    ASCII Strings                              0.249 secs
+    Apply Data Archives                        0.230 secs
+    Basic Constant Reference Analyzer          1.394 secs
+    Call Convention ID                         0.008 secs
+    Call-Fixup Installer                       0.004 secs
+    Create Address Tables                      0.024 secs
+    Create Function                            0.000 secs
+    DWARF                                      0.017 secs
+    Data Reference                             0.037 secs
+    Decompiler Switch Analysis                 0.164 secs
+    Demangler GNU                              0.214 secs
+    Disassemble Entry Points                   0.013 secs
+    Embedded Media                             0.013 secs
+    External Entry References                  0.000 secs
+    Function Start Search                      0.106 secs
+    Function Start Search After Code           0.012 secs
+    Function Start Search After Data           0.031 secs
+    GCC Exception Handlers                     0.471 secs
+    Non-Returning Functions - Discovered       0.026 secs
+    Non-Returning Functions - Known            0.019 secs
+    Reference                                  0.093 secs
+    Shared Return Calls                        0.026 secs
+    Stack                                      0.069 secs
+    Subroutine References                      0.036 secs
+-----------------------------------------------------
+     Total Time   3 secs
+-----------------------------------------------------
+ (AutoAnalysisManager)  
+Program Info:
+Program: ls: AARCH64:LE:64:v8A_default (Sat Aug 06 02:18:37 UTC 2022)
+
+Memory layout:
+Imagebase: 0x100000
+segment_2.1 [start: 0x1048576, end: 0x1049143]
+.interp [start: 0x1049144, end: 0x1049170]
+.note.gnu.build-id [start: 0x1049172, end: 0x1049207]
+.note.ABI-tag [start: 0x1049208, end: 0x1049239]
+.gnu.hash [start: 0x1049240, end: 0x1049303]
+.dynsym [start: 0x1049304, end: 0x1052423]
+.dynstr [start: 0x1052424, end: 0x1053877]
+.gnu.version [start: 0x1053878, end: 0x1054137]
+.gnu.version_r [start: 0x1054144, end: 0x1054255]
+.rela.dyn [start: 0x1054256, end: 0x1060087]
+.rela.plt [start: 0x1060088, end: 0x1062703]
+.init [start: 0x1062704, end: 0x1062723]
+.plt [start: 0x1062736, end: 0x1064511]
+.text [start: 0x1064512, end: 0x1149231]
+.fini [start: 0x1149232, end: 0x1149247]
+.rodata [start: 0x1149248, end: 0x1168549]
+.eh_frame_hdr [start: 0x1168552, end: 0x1170795]
+.eh_frame [start: 0x1170800, end: 0x1182903]
+.init_array [start: 0x1250024, end: 0x1250031]
+.fini_array [start: 0x1250032, end: 0x1250039]
+.data.rel.ro [start: 0x1250040, end: 0x1252607]
+.dynamic [start: 0x1252608, end: 0x1253119]
+.got [start: 0x1253120, end: 0x1253351]
+.got.plt [start: 0x1253352, end: 0x1254247]
+.data [start: 0x1254248, end: 0x1254935]
+.bss [start: 0x1254936, end: 0x1259735]
+EXTERNAL [start: 0x1261568, end: 0x1262527]
+.gnu_debugaltlink [start: 0x0, end: 0x73]
+.gnu_debuglink [start: 0x0, end: 0x51]
+.shstrtab [start: 0x0, end: 0x279]
+_elfSectionHeaders [start: 0x0, end: 0x1855]
+```
+</details>
 
 ## Ghidra Python Headless Scripting Hangups
 
@@ -432,3 +522,4 @@ Shutting down ghidra_bridge_server : 43841
    - a `.properties` file needs to exist with the same name and location as the script being run. In this case a [sample.properties](sample.properties) sets the arguments for [sample.py](sample.py).
    - the args have to be passed on the command line when running `analyzeHeadless`. For [sample-bridge.py](sample-bridge.py), the args are awkwardly passed when ghidra_bridge_server [starts](sample-bridge.py#L37), as that server running within the Ghidra context is the only time analyzeHeadless is called.  More details [here](https://github.com/justfoxing/ghidra_bridge#headless-analysis-context).
 3. `ghidra-bridge` has to be started and running before you [connect](sample-bridge.py#L53) to it. The bridge can be started outside of sample-bridge.py, but you won't be able to pass arguments to it if neeed. Also, `ghidra-bridge` is slow for large analysis. Its best feature is the ability to step through and inspect the sample-bridge.py script within the IDE.
+4. `pyhidra` - Need to be wary of conflicting module names. As python stdlib and Ghidra have some conflicting module names (such as `pdb`), there are sometimes issues getting access to the full Ghidra Script API with `pyhidra`. Python prefers local modules and stdlib over the Java imports. This is due to [this issue](https://jpype.readthedocs.io/en/latest/userguide.html#importing-java-classes) in `jpype`.
