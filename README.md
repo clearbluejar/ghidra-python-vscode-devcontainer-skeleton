@@ -50,7 +50,21 @@ Make sure you have the [prequisites](https://code.visualstudio.com/docs/remote/c
 2. code `ghidra-python-vscode-devcontainer-skeleton`
 3. When VS Code loads, it will recognize the .devcontainer folder and ask if you would like to open
 
-These two options should work out of the box (or container) with an experience like the one shown in the gif above. 
+These two options should work out of the box (or container) with an experience like the one shown in the gif above.
+
+### Configure
+
+The following options are available in the [devcontainer.json](.devcontainer/devcontainer.json)
+
+#### Set Python and Ghidra Version
+
+https://github.com/clearbluejar/ghidra-python-vscode-devcontainer-skeleton/blob/82077efed8ce673641d2b55f44af69a6ea677a69/.devcontainer/devcontainer.json#L8-L16
+
+#### Set Java and Gradle Version
+
+https://github.com/clearbluejar/ghidra-python-vscode-devcontainer-skeleton/blob/82077efed8ce673641d2b55f44af69a6ea677a69/.devcontainer/devcontainer.json#L64-L67
+
+Ghidra requires at least 11. Install gradle if you want to build native extensions (required see [post-create.sh](https://github.com/clearbluejar/ghidra-python-vscode-devcontainer-skeleton/blob/82077efed8ce673641d2b55f44af69a6ea677a69/.devcontainer/post-create.sh#L29-L32) if you are running on Apple M1 silicon)
 
 ## Manual Setup (Less Good Option)
 
