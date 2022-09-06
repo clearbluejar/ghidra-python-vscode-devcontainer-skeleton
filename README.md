@@ -31,6 +31,32 @@ This version is an upgrade from the old [ghidra-python-vscode-skeleton](https://
 
 ![demo](https://github.com/clearbluejar/ghidra-python-vscode-devcontainer-skeleton/blob/assets/ghidra-python-vscode-devcontainer-skeleton.gif?raw=True)
 
+---
+
+## TOC 
+- [ghidra-python-vscode-devcontainer-skeleton](#ghidra-python-vscode-devcontainer-skeleton)
+  - [Features](#features)
+  - [About](#about)
+    - [Devcontainers](#devcontainers)
+  - [TOC](#toc)
+  - [Quick Start Setup - Dev Container  (Best Option)](#quick-start-setup---dev-container--best-option)
+    - [Option 1: Open a Git repository or GitHub PR in an isolated container volume](#option-1-open-a-git-repository-or-github-pr-in-an-isolated-container-volume)
+    - [Option 2: Open an existing folder in a container](#option-2-open-an-existing-folder-in-a-container)
+    - [Configure](#configure)
+      - [Set Python and Ghidra Version](#set-python-and-ghidra-version)
+      - [Set Java and Gradle Version](#set-java-and-gradle-version)
+      - [Rebuild after changes](#rebuild-after-changes)
+  - [Manual Setup (Less Good Option)](#manual-setup-less-good-option)
+  - [Workflow](#workflow)
+    - [Ghidra Headless Analyzer (running command line scripts with Ghidra)](#ghidra-headless-analyzer-running-command-line-scripts-with-ghidra)
+    - [Steps](#steps)
+    - [Project Creation and Importing Binaries](#project-creation-and-importing-binaries)
+    - [Different Ways to run a Ghidra Headless script](#different-ways-to-run-a-ghidra-headless-script)
+    - [Sample Outputs](#sample-outputs)
+  - [Ghidra Python Headless Scripting Hangups](#ghidra-python-headless-scripting-hangups)
+
+---
+
 ## Quick Start Setup - Dev Container  (Best Option)
 
 On first run, it will build a fast [debian image](https://github.com/microsoft/vscode-dev-containers/tree/main/containers/python-3) with the python3 installed along with java dependencies needed for Ghidra scripting. Then it will download Ghidra based on your settings in [devcontainer.json](.devcontainer/devcontainer.json#L15-L16) and finally create the virtual environment for python and required pip packages in [post-create.sh](.devcontainer/post-create.sh).
@@ -54,7 +80,7 @@ These two options should work out of the box (or container) with an experience l
 
 ### Configure
 
-The following options are available in the [devcontainer.json](.devcontainer/devcontainer.json)
+The following options are available in the [devcontainer.json](.devcontainer/devcontainer.json).
 
 #### Set Python and Ghidra Version
 
@@ -65,6 +91,10 @@ https://github.com/clearbluejar/ghidra-python-vscode-devcontainer-skeleton/blob/
 https://github.com/clearbluejar/ghidra-python-vscode-devcontainer-skeleton/blob/82077efed8ce673641d2b55f44af69a6ea677a69/.devcontainer/devcontainer.json#L64-L67
 
 Ghidra requires at least 11. Install gradle if you want to build native extensions (required see [post-create.sh](https://github.com/clearbluejar/ghidra-python-vscode-devcontainer-skeleton/blob/82077efed8ce673641d2b55f44af69a6ea677a69/.devcontainer/post-create.sh#L29-L32) if you are running on Apple M1 silicon)
+
+#### Rebuild after changes
+
+If you make changes to [devcontainer.json](.devcontainer/devcontainer.json), you will need to rebuild the container to enact them. You can do this by running the `Remote-Containers: Rebuild Container` command in the Command Palette (F1) when you are connected to the container.
 
 ## Manual Setup (Less Good Option)
 
