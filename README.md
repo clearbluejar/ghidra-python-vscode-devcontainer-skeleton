@@ -1,5 +1,14 @@
 # ghidra-python-vscode-devcontainer-skeleton
 
+<p align="center">
+<img align="center" src="https://user-images.githubusercontent.com/3752074/189025332-c62b7eae-464a-49e6-8b9e-c4ff103832a5.jpg">
+</p>
+
+<p align="center">
+<a href="https://twitter.com/intent/follow?screen_name=clearbluejar"><img align="center" src="https://img.shields.io/twitter/follow/clearbluejar?color=blue&style=for-the-badge"></a> 
+  <img align="center" src="https://img.shields.io/github/stars/clearbluejar/ghidra-python-vscode-devcontainer-skeleton?style=for-the-badge">
+</p>
+
 A skeleton repo to provide a Ghidra Headless (non-GUI) Python scripting environment in VS Code.
 
 ## Features
@@ -29,7 +38,7 @@ If you haven't tried [developing inside a container](https://code.visualstudio.c
 
 This version is an upgrade from the old [ghidra-python-vscode-skeleton](https://github.com/clearbluejar/ghidra-python-vscode-skeleton). Upgraded via the power of  `vscode` devcontainers. **Everything just works.** Don't believe me? Try it.
 
-![demo](https://github.com/clearbluejar/ghidra-python-vscode-devcontainer-skeleton/blob/assets/ghidra-python-vscode-devcontainer-skeleton.gif?raw=True)
+![ghidra-python-vscode-devcontainer-skeleton-demo-gif](https://user-images.githubusercontent.com/3752074/189027265-87dacacd-7935-4874-b89e-d4a2ba098359.gif)
 
 ---
 
