@@ -9,6 +9,8 @@
   <img align="center" src="https://img.shields.io/github/stars/clearbluejar/ghidra-python-vscode-devcontainer-skeleton?style=for-the-badge">
 </p>
 
+Blog post: [Ghidra Python Paleontology](https://clearbluejar.github.io/posts/building-vscode-ghidra-python-skeletons/)
+
 A skeleton repo to provide a Ghidra Headless (non-GUI) Python scripting environment in VS Code.
 
 ## Features
