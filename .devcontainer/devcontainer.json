@@ -12,7 +12,7 @@
 			"VARIANT": "3.10-bullseye",
 			// Options
 			"NODE_VERSION": "none",			
-			// Ghidra Version: none, latest, 10.x.x, 10.1.4, 10.1.3, ...
+			// Ghidra Version: none, latest, 10.2, 10.1.5, 10.1.4, ...
 			"GHIDRA_VERSION": "latest"
 		}
 	},
@@ -64,8 +64,8 @@
 
 	"features": {
         "ghcr.io/devcontainers/features/java:1": {
-            "version": "11",
-			"installGradle": true
+            "version": "17",
+            "installGradle": true
         }
 	}
 }
