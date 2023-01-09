@@ -65,7 +65,6 @@ if [ "${GHIDRA_VERSION}" == "latest" ]; then
     GHIDRA_VERSION="$(echo ${GHIDRA_DOWNLOAD_URL} | cut -d_ -f 2)"
 else
     GHIDRA_DOWNLOAD_URL=$(curl -s https://api.github.com/repos/NationalSecurityAgency/ghidra/releases | jq -r ".[] | .assets[] | .browser_download_url" | grep "${GHIDRA_VERSION}")
-    PYI_DOWNLOAD_URL=$(curl -s https://api.github.com/repos/clearbluejar/ghidra-pyi-generator/releases | jq -r ".[] | .assets[] | .browser_download_url" | grep "${GHIDRA_VERSION}" | grep whl)
 fi
 set -e
 
@@ -95,15 +94,6 @@ chown -R ${USERNAME}:${USERNAME} ${GHIDRA_INSTALL_DIR}
 
 # Clean up 
 rm -rf /tmp/ghidra-tmp
-
-# # Download .pyi type stubs for the entire Ghidra API
-# if [ $PYI_DOWNLOAD_URL ]; then
-#     pushd $GHIDRA_INSTALL_DIR
-#     wget $PYI_DOWNLOAD_URL 
-#     popd
-# else
-#     echo "Couldn't find matching .pyi release for Ghidra Version: ${GHIDRA_VERSION} in https://api.github.com/repos/clearbluejar/ghidra-pyi-generator/releases"
-# fi
 
 # Make GHIDRA ENV vars availble to bash and zsh shells
 updaterc "$(cat << EOF

@@ -2,20 +2,8 @@
 python3 -m venv .env
 source .env/bin/activate
 
-# Download latest pyi typings for Ghidra Version
-PYI_WHL_DOWNLOAD_URL=$(curl -s https://api.github.com/repos/clearbluejar/ghidra-pyi-generator/releases | jq -r ".[] | .assets[] | .browser_download_url" | grep "${GHIDRA_VERSION}" | grep whl | head -1)
-
-# Ensure have valid versions
-if [ -z "$PYI_WHL_DOWNLOAD_URL" ] || [ -z "$GHIDRA_VERSION" ]; then
-    echo "Error: Failed to get PYI_WHL_DOWNLOAD_URL:${PYI_WHL_DOWNLOAD_URL} filtering on GHIDRA_VERSION:${GHIDRA_VERSION}"
-    RELEASES=$(curl -s https://api.github.com/repos/clearbluejar/ghidra-pyi-generator/releases | jq -r ".[] | .assets[] | .browser_download_url")
-    echo "Possible releases here: ${RELEASES}"
-    exit 1 ## error out if they are empty
-fi
-
-echo $PYI_WHL_RELEASE_URLS
-echo $PYI_WHL_DOWNLOAD_URL
-pip install "${PYI_WHL_DOWNLOAD_URL}"
+# Download latest pyi typings
+pip install ghidra-stubs
 
 # Install ghidra-bridge
 pip install ghidra_bridge
