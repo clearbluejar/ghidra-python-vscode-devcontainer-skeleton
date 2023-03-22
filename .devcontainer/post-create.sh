@@ -20,7 +20,7 @@ if uname -a | grep -q 'aarch64'; then
 fi
 
 # Setup Ghidra Dev for Reference
-git clone git@github.com:NationalSecurityAgency/ghidra.git ~/ghidra-master
+git clone https://github.com/NationalSecurityAgency/ghidra.git ~/ghidra-master
 pushd ~/ghidra-master
 
 # Follow setup from https://github.com/NationalSecurityAgency/ghidra/blob/master/DevGuide.md
