@@ -43,7 +43,13 @@ jobs:
           sudo wget -qnv https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable/x${NAME}_${VERSION_ID}/Release.key -O Release.key
           sudo apt-key add Release.key
           sudo apt-get update
-          sudo apt-get install skopeo               
+          sudo apt-get install skopeo         
+          
+      # enables building of multi-platform images
+      - name: Create Docker Build Instance
+        run: |
+          docker buildx create --use
+          docker buildx ls          
 
       - name: Build dev container image
         uses: devcontainers/ci@v0.3
