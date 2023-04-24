@@ -1,10 +1,11 @@
 import os
 import subprocess
 
-# Env vars from launch.json 
-GHIDRA_HEADLESS = os.getenv('GHIDRA_HEADLESS')
-PROJECT_NAME = os.getenv('PROJECT_NAME')
-PROJECT_PATH = os.path.join(os.getenv('GHIDRA_PROJECTS_PATH'),PROJECT_NAME)
+# Env vars from launch.json
+GHIDRA_HEADLESS = '/ghidra/support/analyzeHeadless'
+PROJECT_NAME = 'sample_pyhidra'
+PROJECT_LOCATION = '.ghidra_projects'
+PROJECT_PATH = os.path.join(PROJECT_LOCATION, PROJECT_NAME)
 
 # Project Path Needs to exist
 if not os.path.exists(PROJECT_PATH):

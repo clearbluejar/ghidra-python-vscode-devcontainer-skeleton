@@ -1,14 +1,14 @@
-#TODO write a description for this script
-#@author 
-#@category Functions
-#@keybinding 
-#@menupath 
-#@toolbar 
+# TODO write a description for this script
+# @author
+# @category Functions
+# @keybinding
+# @menupath
+# @toolbar
 
 
-#TODO Add User Code Here
+# TODO Add User Code Here
 
-#### Section to make autocomplete work
+# Section to make autocomplete work
 try:
     import ghidra
     from ghidra_builtins import *
@@ -18,37 +18,39 @@ except:
 
 import ghidra_bridge
 
-#### Start ghidra-bridge-server before we are able to connect so we can pass args 
+# Start ghidra-bridge-server before we are able to connect so we can pass args
 import os
 import subprocess
+
 
 def is_port_in_use(port: int) -> bool:
     import socket
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         return s.connect_ex(('localhost', port)) == 0
 
-GHIDRA_HEADLESS = os.getenv('GHIDRA_HEADLESS')
-PROJECT_NAME = os.getenv('PROJECT_NAME')
-PROJECT_PATH = os.path.join(os.getenv('GHIDRA_PROJECTS_PATH'),PROJECT_NAME)
-GHIDRA_BRIDGE_INSTALL_DIR = os.getenv('GHIDRA_BRIDGE_INSTALL_DIR')
+
+GHIDRA_HEADLESS = '/ghidra/support/analyzeHeadless'
+PROJECT_NAME = 'sample_pyhidra'
+PROJECT_LOCATION = '.ghidra_projects'
+PROJECT_PATH = os.path.join(PROJECT_LOCATION, PROJECT_NAME)
+GHIDRA_BRIDGE_INSTALL_DIR = '.ghidra_bridge'
 
 BINARY = "ls"
 
-args = [GHIDRA_HEADLESS, PROJECT_PATH, PROJECT_NAME, '-scriptPath', GHIDRA_BRIDGE_INSTALL_DIR, "-postscript", 'ghidra_bridge_server.py', BINARY]
+args = [GHIDRA_HEADLESS, PROJECT_PATH, PROJECT_NAME, '-scriptPath',
+        GHIDRA_BRIDGE_INSTALL_DIR, "-postscript", 'ghidra_bridge_server.py', BINARY]
 print(' '.join(args))
 
 proc = None
 BRIDGE_PORT = 4768
 try:
-    proc = subprocess.Popen (args, shell=False, preexec_fn=os.setsid)
+    proc = subprocess.Popen(args, shell=False, preexec_fn=os.setsid)
 
     # Wait for ghidra_bridge_server to be ready
     import time
     while not is_port_in_use(BRIDGE_PORT):
         time.sleep(1)
         print("waiting for ghidra_bridge_server...")
-
-
 
     with ghidra_bridge.GhidraBridge(namespace=globals(), response_timeout=4, ):
         project = state.getProject()
@@ -60,7 +62,7 @@ try:
         print(rootFolder)
 
         prog = askProgram("program")
-        
+
         print("Program Info:")
         program_name = prog.getName()
         creation_date = prog.getCreationDate()
@@ -75,7 +77,7 @@ try:
             start = block.getStart().getOffset()
             end = block.getEnd().getOffset()
             print("{} [start: 0x{}, end: 0x{}]".format(block.getName(), start, end))
-    
+
     # Give time for bridge connection to close
     time.sleep(2)
 finally:
