@@ -4,6 +4,9 @@ on: # rebuild any PRs and main branch changes
   push:
     branches:
       - main
+    paths:
+      - '.devcontainer/**'
+
   workflow_dispatch:
 
 jobs:
@@ -21,12 +24,20 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - id: image_id
+        uses: pozetroninc/github-action-get-latest-release@master
+        with:
+          owner: clearbluejar
+          repo: ghidra-python-vscode-devcontainer-skeleton
+          excludes: prerelease, draft          
+
       - name: Pre-build dev container image
         uses: devcontainers/ci@v0.3
         with:
-          imageName: ghcr.io/clearbluejar/ghidra-python-vscode-devcontainer-skeleton
-          cacheFrom: ghcr.io/clearbluejar/ghidra-python-vscode-devcontainer-skeleton
+          imageName: ghcr.io/clearbluejar/ghidra-python-vscode-devcontainer
+          cacheFrom: ghcr.io/clearbluejar/ghidra-python-vscode-devcontainer
           push: always
+          imageTag: latest,${{ steps.image_id.outputs.release }}
           runCmd: |
             find .
             find /ghidra

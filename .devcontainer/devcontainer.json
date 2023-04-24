@@ -1,7 +1,7 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
 // https://github.com/microsoft/vscode-dev-containers/tree/v0.245.2/containers/python-3
 {
-	"name": "Python 3",
+	"name": "ghidra-python-vscode-devcontainer-skeleton",
 	"build": {
 		"dockerfile": "Dockerfile",
 		"context": "..",
@@ -9,7 +9,7 @@
 			// Update 'VARIANT' to pick a Python version: 3, 3.10, 3.9, 3.8, 3.7, 3.6
 			// Append -bullseye or -buster to pin to an OS version.
 			// Use -bullseye variants on local on arm64/Apple Silicon.
-			"VARIANT": "3.10-bullseye",
+			"VARIANT": "3-bullseye",
 			// Options
 			"NODE_VERSION": "none",
 		}
@@ -60,9 +60,13 @@
 			"version": "17",
 			"installGradle": true
 		},
-		"ghcr.io/clearbluejar/features/ghidra:1": {
+		"ghcr.io/clearbluejar/features/ghidra:1.1.0": {
 			// Ghidra Version: none, latest, 10.2, 10.1.5, 10.1.4, ...
 			"GHIDRA_VERSION": "latest"
 		}
-	}
+	},
+	// ensures java is this when ghidra is installed to support native bins
+	"overrideFeatureInstallOrder": [
+		"ghcr.io/devcontainers/features/java"
+	]
 }
