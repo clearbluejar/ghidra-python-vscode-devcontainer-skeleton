@@ -12,8 +12,8 @@
 			"VARIANT": "3-bullseye",
 			// Options
 			"NODE_VERSION": "none",
-			"containerUser": "vscode"
-		}
+		},
+		"containerUser": "vscode"
 	},
 	// Configure tool-specific properties.
 	"customizations": {
