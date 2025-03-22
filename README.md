@@ -23,7 +23,7 @@ A skeleton repo to provide a Ghidra Headless (non-GUI) Python scripting environm
   - via pyi typings from [VDOO-Connected-Trust/ghidra-pyi-generator](https://github.com/VDOO-Connected-Trust/ghidra-pyi-generator)
 - IDE debugging (available from either)
   - [justfoxing/ghidra_bridge](https://github.com/justfoxing/ghidra_bridge) over RPC
-  - [pyhidra](https://github.com/dod-cyber-crime-center/pyhidra) leveraging native CPython interpreter using [jpype](https://jpype.readthedocs.io/en/latest/)
+  - [pyghidra](https://github.com/dod-cyber-crime-center/pyghidra) leveraging native CPython interpreter using [jpype](https://jpype.readthedocs.io/en/latest/)
 - Demonstrates running python scripts in [various ways](#different-ways-to-run-a-ghidra-headless-script).
 
 ## About
@@ -129,8 +129,8 @@ The manual setup essentially has to mimic the following scripts:
    - ghidra bridge
      - `pip install ghidra-bridge`
      - `python -m ghidra_bridge.install_server .ghidra_bridge`
-   - pyhidra
-     - `pip install pyhidra`
+   - pyghidra
+     - `pip install pyghidra`
 
 </details>
 
@@ -224,7 +224,7 @@ There are several ways to run a Ghidra Python script.
 3. Run via launch on [sample_bridge.py](sample_bridge.py) leveraging `ghidra-bridge`.
    - Requires the ghidra-bridge to [start prior to connecting](sample_bridge.py#L43-L49) via bridge. 
    - Instead of properties file, [passes](sample_bridge.py#L37) `ls` argument to ghidra-bridge server. 
-4. Run [sample_pyhidra.py](sample_pyhidra.py) leveraging `pyhidra` (best one! It really just works with the help of `jpype`)   
+4. Run [sample_pyghidra.py](sample_pyghidra.py) leveraging `pyghidra` (best one! It really just works with the help of `jpype`)   
 5. Run [sample.py](sample.py) directly in Ghidra via the GUI after copying it to the `ghidra_scripts` directory. If you are doing that, you likely don't need this repo.
 
 ### Sample Outputs
@@ -483,10 +483,10 @@ Shutting down ghidra_bridge_server : 43841
 ```
 </details>
 
-<details><summary>4. Run via launch on sample_pyhidra.py</summary>
+<details><summary>4. Run via launch on sample_pyghidra.py</summary>
 
 ```terminal
-(.env) vscode ➜ /workspaces/ghidra-python-vscode-devcontainer-skeleton (main ✗) $  cd /workspaces/ghidra-python-vscode-devcontainer-skeleton ; /usr/bin/env /workspaces/ghidra-python-vscode-devcontainer-skeleton/.env/bin/python /home/vscode/.vscode-server/extensions/ms-python.python-2022.12.0/pythonFiles/lib/python/debugpy/adapter/../../debugpy/launcher 40875 -- /workspaces/ghidra-python-vscode-devcontainer-skeleton/sample_pyhidra.py 
+(.env) vscode ➜ /workspaces/ghidra-python-vscode-devcontainer-skeleton (main ✗) $  cd /workspaces/ghidra-python-vscode-devcontainer-skeleton ; /usr/bin/env /workspaces/ghidra-python-vscode-devcontainer-skeleton/.env/bin/python /home/vscode/.vscode-server/extensions/ms-python.python-2022.12.0/pythonFiles/lib/python/debugpy/adapter/../../debugpy/launcher 40875 -- /workspaces/ghidra-python-vscode-devcontainer-skeleton/sample_pyghidra.py 
 /ghidra/Ghidra/Framework/Utility/lib/Utility.jar
 INFO  Using log config file: jar:file:/ghidra/Ghidra/Framework/Generic/lib/Generic.jar!/generic.log4j.xml (LoggingInitialization)  
 INFO  Using log file: /home/vscode/.ghidra/.ghidra_10.1.4_PUBLIC/application.log (LoggingInitialization)  
@@ -577,4 +577,4 @@ _elfSectionHeaders [start: 0x0, end: 0x1855]
    - a `.properties` file needs to exist with the same name and location as the script being run. In this case a [sample.properties](sample.properties) sets the arguments for [sample.py](sample.py).
    - the args have to be passed on the command line when running `analyzeHeadless`. For [sample_bridge.py](sample_bridge.py), the args are awkwardly passed when ghidra_bridge_server [starts](sample_bridge.py#L37), as that server running within the Ghidra context is the only time analyzeHeadless is called.  More details [here](https://github.com/justfoxing/ghidra_bridge#headless-analysis-context).
 3. `ghidra-bridge` has to be started and running before you [connect](sample_bridge.py#L53) to it. The bridge can be started outside of sample_bridge.py, but you won't be able to pass arguments to it if neeed. Also, `ghidra-bridge` is slow for large analysis. Its best feature is the ability to step through and inspect the sample_bridge.py script within the IDE.
-4. `pyhidra` - ~~Need to be wary of conflicting module names. As python stdlib and Ghidra have some conflicting module names (such as `pdb`), there are sometimes issues getting access to the full Ghidra Script API with `pyhidra`. Python prefers local modules and stdlib over the Java imports. This is due to [this issue](https://jpype.readthedocs.io/en/latest/userguide.html#importing-java-classes) in `jpype`.~~ No longer the case :) [Fixed](https://github.com/dod-cyber-crime-center/pyhidra/pull/18).
+4. `pyghidra` - ~~Need to be wary of conflicting module names. As python stdlib and Ghidra have some conflicting module names (such as `pdb`), there are sometimes issues getting access to the full Ghidra Script API with `pyghidra`. Python prefers local modules and stdlib over the Java imports. This is due to [this issue](https://jpype.readthedocs.io/en/latest/userguide.html#importing-java-classes) in `jpype`.~~ No longer the case :) [Fixed](https://github.com/dod-cyber-crime-center/pyghidra/pull/18).

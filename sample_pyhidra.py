@@ -1,5 +1,5 @@
 import os
-import pyhidra
+import pyghidra
 
 # Section to make autocomplete work
 try:
@@ -9,12 +9,12 @@ except:
     pass
 ####
 
-PROJECT_NAME = 'sample_pyhidra'
+PROJECT_NAME = 'sample_pyghidra'
 PROJECT_LOCATION = '.ghidra_projects'
 
-pyhidra.start(True)  # setting Verbose output
+pyghidra.start(True)  # setting Verbose output
 
-with pyhidra.open_program("/bin/ls", project_name=PROJECT_NAME, project_location=PROJECT_LOCATION) as flat_api:
+with pyghidra.open_program("/bin/ls", project_name=PROJECT_NAME, project_location=PROJECT_LOCATION) as flat_api:
 
     prog = flat_api.getCurrentProgram()
 
@@ -23,7 +23,8 @@ with pyhidra.open_program("/bin/ls", project_name=PROJECT_NAME, project_location
     creation_date = prog.getCreationDate()
     language_id = prog.getLanguageID()
     compiler_spec_id = prog.getCompilerSpec().getCompilerSpecID()
-    print("Program: {}: {}_{} ({})\n".format(program_name, language_id, compiler_spec_id, creation_date))
+    print("Program: {}: {}_{} ({})\n".format(program_name,
+          language_id, compiler_spec_id, creation_date))
 
     # Get info about the current program's memory layout
     print("Memory layout:")
@@ -31,4 +32,5 @@ with pyhidra.open_program("/bin/ls", project_name=PROJECT_NAME, project_location
     for block in prog.getMemory().getBlocks():
         start = block.getStart().getOffset()
         end = block.getEnd().getOffset()
-        print("{} [start: 0x{}, end: 0x{}]".format(block.getName(), start, end))
+        print("{} [start: 0x{}, end: 0x{}]".format(
+            block.getName(), start, end))

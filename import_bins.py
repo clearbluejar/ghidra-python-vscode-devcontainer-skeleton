@@ -3,7 +3,7 @@ import subprocess
 
 # Env vars from launch.json
 GHIDRA_HEADLESS = '/ghidra/support/analyzeHeadless'
-PROJECT_NAME = 'sample_pyhidra'
+PROJECT_NAME = 'sample_pyghidra'
 PROJECT_LOCATION = '.ghidra_projects'
 PROJECT_PATH = os.path.join(PROJECT_LOCATION, PROJECT_NAME)
 
