@@ -8,12 +8,6 @@ pip install --upgrade pip
 # Download latest pyi typings
 pip install ghidra-stubs
 
-# Install ghidra-bridge
-pip install ghidra_bridge
-
-# Install bridge scripts to local dir
-python -m ghidra_bridge.install_server .ghidra_bridge
-
 # Install pyhdira
 pip install pyghidra
 
@@ -27,17 +21,7 @@ if uname -a | grep -q 'aarch64'; then
         pushd $GHIDRA_INSTALL_DIR/support/gradle/
         gradle buildNatives
         popd
-fi
-fi
-
-# git clone test data if dir doesn't exist
-TEST_DATA_PATH="tests/data"
-
-if [ ! -d "$TEST_DATA_PATH" ] ; then
-    git clone https://github.com/clearbluejar/ghidriff-test-data.git tests/data
-    pushd $TEST_DATA_PATH
-    git remote set-url origin git@github.com:clearbluejar/ghidriff-test-data.git
-    popd
+    fi
 fi
 
 # Setup Ghidra Dev for Reference
