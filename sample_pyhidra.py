@@ -14,9 +14,13 @@ PROJECT_LOCATION = '.ghidra_projects'
 
 pyghidra.start(True)  # setting Verbose output
 
+from ghidra.program.model.listing import Program
+
 with pyghidra.open_program("/bin/ls", project_name=PROJECT_NAME, project_location=PROJECT_LOCATION) as flat_api:
 
-    prog = flat_api.getCurrentProgram()
+    
+    # set correct typing to leverage autocomplete  my_var: "ghidra-type"
+    prog: "Program" = flat_api.getCurrentProgram()    
 
     print("Program Info:")
     program_name = prog.getName()
