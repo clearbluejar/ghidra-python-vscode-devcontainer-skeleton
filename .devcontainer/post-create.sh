@@ -22,6 +22,10 @@ if uname -a | grep -q 'aarch64'; then
         gradle buildNatives
         popd
     fi
+else
+    ## temporary - fix intel 64 docker image with missing packages
+    sudo apt update
+    sudo apt install -y libxtst6 libxi-dev
 fi
 
 # Setup Ghidra Dev for Reference
