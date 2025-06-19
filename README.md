@@ -6,7 +6,8 @@
 
 <p align="center">
 <a href="https://twitter.com/intent/follow?screen_name=clearbluejar"><img align="center" src="https://img.shields.io/twitter/follow/clearbluejar?color=blue&style=for-the-badge"></a> 
-  <img align="center" src="https://img.shields.io/github/stars/clearbluejar/ghidra-python-vscode-devcontainer-skeleton?style=for-the-badge">
+  <img align="center" src="https://img.shields.io/github/stars/clearbluejar/ghidra-python-vscode-devcontainer-skeleton?style=for-the-badge" />
+    <a href="https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/clearbluejar/ghidra-python-vscode-devcontainer-skeleton"><img align="center" src="https://img.shields.io/static/v1?style=for-the-badge&label=Dev+Container&message=Open+in+VSCode&color=blue&logo=docker"/></a> 
 </p>
 
 Blog post: [Ghidra Python Paleontology](https://clearbluejar.github.io/posts/building-vscode-ghidra-python-skeletons/)
