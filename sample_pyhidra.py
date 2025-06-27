@@ -2,6 +2,7 @@ import pyghidra
 
 # Section to make autocomplete work
 try:
+    import os
     import ghidra
     from ghidra_builtins import *
 except:
@@ -10,6 +11,8 @@ except:
 
 PROJECT_NAME = 'sample_pyghidra'
 PROJECT_LOCATION = '.ghidra_projects'
+
+os.environ["JAVA_TOOL_OPTIONS"] = "-Djava.awt.headless=true"
 
 pyghidra.start(True)  # setting Verbose output
 
