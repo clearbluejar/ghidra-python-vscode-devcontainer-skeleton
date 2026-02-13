@@ -11,6 +11,9 @@ pip install ghidra-stubs
 # Install pyhdira
 pip install pyghidra
 
+# Install extract-dtb
+pip install extract-dtb
+
 # If arm64 os, need to build native binaries for Ghidra
 if uname -a | grep -q 'aarch64'; then
     if [ -e $GHIDRA_INSTALL_DIR/support/buildNatives ]
